@@ -29,20 +29,20 @@ function Contact() {
   return (
     <div className="p-8 text-center shadow bg-gradient-to-br from-yellow-50 to-orange-100 max-w-xl mx-auto -mt-2 mb-2 rounded-2xl">
       <h2 className="text-3xl font-semibold mb-2">Contact Us</h2>
-      <p>Email: support@foodieexpress.com</p>
+      <p>Email: <span className="text-blue-600">support@foodieexpress.com</span></p>
       <p>Phone: +234 70 3829 8493</p>
       <p>Address: 123 soft-bite Lane, Flavor Town, ile-oluji</p>
       <p>Business Hours: Mon-Fri, 9am - 6pm</p>
       <div className="my-6">
         <h3 className="text-xl font-medium mb-1">Follow us:</h3>
         <div className="flex justify-center space-x-4 mb-4">
-          <a href="https://facebook.com/foodieexpress" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline">
+          <a href="https://facebook.com/foodieexpress" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover">
             Facebook
           </a>
-          <a href="https://twitter.com/foodieexpress" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">
+          <a href="https://twitter.com/foodieexpress" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover">
             Twitter
           </a>
-          <a href="https://instagram.com/foodieexpress" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">
+          <a href="https://instagram.com/foodieexpress" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover">
             Instagram
           </a>
         </div>

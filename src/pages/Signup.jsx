@@ -1,10 +1,15 @@
 import { useState } from "react";
-import { useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 export default function Signup() {
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
-  const [submitted, setSubmitted] = useState(false);
+  const [form, setForm] = useState({ name: "Tembogs", email: "", password: "" });
   const [clicked, setClicked] = useState(false)
+  const navigate = useNavigate();
+  const [profile , setProfile] = useState(false);
+
 
 
  
@@ -15,55 +20,30 @@ export default function Signup() {
    const handleCheckedBox = () => {
     setClicked((prev) => !prev)
    }
-  function handleSubmit(e) {
+    
+  //  prevent the button from navigating into home without clicking on the checkedbox first
+   const handleSignUp = (e) => {
     e.preventDefault();
-    setSubmitted(true);
-  }
-
-  // Simulated API call
-  function fakeSignupApi(formData) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ success: true });
-      }, 1500);
-    });
-  }
-
-  // SetInterval example: show a message every 5 seconds after submit
-  const [intervalMsg, setIntervalMsg] = useState("");
-  const intervalRef = useRef(null);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setSubmitted(true);
-    setIntervalMsg(""); // Reset message
-
-    // Simulate API call
-    await fakeSignupApi(form);
-
-    // Start interval after signup
-    if (!intervalRef.current) {
-      intervalRef.current = setInterval(() => {
-        setIntervalMsg("Welcome! This message appears every 5 seconds.");
-      }, 5000);
+    if (form.name === 'Tembogs' && form.email ==='temmytizzy201@gmail.com' && form.password === 'Tembogs' && clicked) {
+      localStorage.setItem =('isLogged', 'true');
+      navigate('/home', { state: { name: form.name } });
+      setProfile(true)
+      alert('Login Successful')
+    } else {
+      alert ('invalid credentials')
     }
-  }
-
-  // Cleanup interval on unmount
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-    };
-  }, []);
+    
+  }; 
 
   return (
+    
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100">
       <div className="bg-white rounded-xl shadow-lg p-10 w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+        <h2 className="text-2xl font-bold mb-4">{`Welcome`}</h2>
         <p className="mb-6 text-gray-600 text-sm block">
           Create your account to access exclusive features <span className="mx-auto"> and stay updated!</span> 
         </p>
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-4">
           <div className="relative w-70 mt-2 ">
             <input
               id="name"
@@ -136,38 +116,18 @@ export default function Signup() {
           <button
             className={`w-full text-white py-2 rounded ${clicked ? 'bg-green-600 cursor-pointer hover:bg-green-700' : 'opacity-60 bg-green-400  font-semibold cursor-not-allowed'} `}
             type="submit"
-           
+            onClick={handleSignUp}
+            disabled={!clicked}
           >
-            <a
-              href="/home"
-              className={`${clicked ? 'cursor-pointer' :  'cursor-not-allowed'}`}
-              disabled
-              >
-              Sign up
-            </a>
+            Get started
           </button>
         </form>
-        {submitted && (
-          <div className="mt-4 text-green-700">Signup submitted!</div>
-        )}
-        {intervalMsg && (
-          <div className="mt-2 text-blue-600">{intervalMsg}</div>
-        )}
-        <div className="mt-6 text-center text-sm text-gray-600">
+        {/* <div className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
           <a href="/login" className="text-blue-600 underline hover:text-blue-800">
             Log in
           </a>
-        </div>
-        <div className="mt-4 flex items-center justify-center">
-          <span className="text-xs text-gray-400 mr-2">or sign up with</span>
-          <button className="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600 mx-1">
-            Google
-          </button>
-          <button className="bg-gray-800 text-white px-3 py-1 rounded text-xs hover:bg-gray-900 mx-1">
-            GitHub
-          </button>
-        </div>
+        </div> */}
       </div>
     </div>  
   );

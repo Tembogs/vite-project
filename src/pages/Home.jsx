@@ -1,6 +1,12 @@
 import { FaUtensils, FaTruck, FaSmile } from "react-icons/fa";
+import { useLocation } from "react-router";
+
+
 
 export default function Home() {
+
+  const location = useLocation();
+  const name = location.state?.name || 'Guest';
   return (
     <div className="p-8 text-center bg-gradient-to-br from-yellow-50 to-orange-100 min-h-screen flex flex-col items-center justify-center">
       <img
@@ -11,7 +17,7 @@ export default function Home() {
       <h1 className="text-5xl font-extrabold mb-6">
         <span className="inline-flex items-center gap-2">
           <FaUtensils className="text-orange-500 animate-bounce" />
-          Welcome to Soft-Bite
+          {`Welcome to Soft-Bite, ${name}`}
         </span>
       </h1>
       <p className="text-xl mb-8 text-gray-700">
@@ -121,7 +127,7 @@ export default function Home() {
       <div className="mb-8">
         <a
           href="/menu"
-          className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition-colors duration-200"
+          className="inline-block bg-orange-500 hover:bg-orange-600 hover:scale-110  text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg transition-all ease-in-out duration-700"
         >
           Order Now
         </a>

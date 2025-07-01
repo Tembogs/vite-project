@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import '../App.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -14,9 +17,20 @@ export default function Menu() {
   const [cartItems, setCartItems] = useState([]);
   const [addedItems, setAddedItems] = useState({});
   const [showDelivery, setShowDelivery] = useState(false)
+  const navigate = useNavigate();
+  const [code, setCode] = useState(null);
+ 
 
+  
+  useEffect(() => {
+    const generated = Math.floor(1 + Math.random() * 900000);
+    setCode(generated);
+  }, []);
 
+ const handleHome = () => {
+  navigate('/home');
 
+ }
 
 //  mapping
   delete L.Icon.Default.prototype._getIconUrl;
@@ -80,9 +94,17 @@ export default function Menu() {
   // Show cart button only if there are items in cart
   const buttonOpen = cartItems.length > 0;
   const handleDeliveryOrder = () => {
+    localStorage.removeItem('cartItems');
+    toast.success("Order placed successfully! 🚚");
     setShowDelivery(true)
+
+    
+
+
   }
  // Show cart button only if there are items in cart  
+
+
  
 //  OrderList
   const food = [
@@ -170,29 +192,52 @@ export default function Menu() {
     let quantity = quantities[item.id];
     if (quantity === "" || isNaN(quantity) || quantity < 1) quantity = 1;
     if (quantity > item.max) quantity = item.max;
-    setQuantities((prev) => ({ ...prev, [item.id]: quantity }));
-    setCartItems((prev) => {
-      const exists = prev.find((i) => i.id === item.id);
-      if (exists) {
-        return prev.map((i) =>
-          i.id === item.id ? { ...i, quantity } : i
-        );
-      } else {
-        return [...prev, { ...item, quantity }];
-      }
-    });
+   const updatedQuantities = { ...quantities, [item.id]: 1 };
+    const updatedCartItems = (() => {
+    const exists = cartItems.find((i) => i.id === item.id);
+    if (exists) {
+      return cartItems.map((i) =>
+        i.id === item.id ? { ...i, quantity } : i
+      );
+    } else {
+      return [...cartItems, { ...item, quantity }];
+    }
+  })();
+    setQuantities(updatedQuantities);
+    setCartItems(updatedCartItems);
     setAddedItems((prev) => ({ ...prev, [item.id]: true }));
+    localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+    localStorage.setItem('quantities', JSON.stringify(updatedQuantities));
+    
+
   };
+  useEffect(() => {
+  const savedCart = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const savedQuantities = JSON.parse(localStorage.getItem('quantities')) || {};
+
+    setCartItems(savedCart);
+    setQuantities(savedQuantities);
+  }, []);
+
+  useEffect(() => {
+  const saved = JSON.parse(localStorage.getItem('addedItems')) || {};
+  setAddedItems(saved);
+}, []);
 
   const removeFromCart = (itemId) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== itemId));
-    setAddedItems((prev) => ({ ...prev, [itemId]: false }));
-  };
+  const removeCartItems = cartItems.filter((item) => item.id !== itemId);
+  const removeAddedItems = { ...addedItems, [itemId]: false };
 
-  // Map through all food items and log their img property (for demonstration)
-  // You can use this mapping to display images or process them as needed
+  setCartItems(removeCartItems);
+  setAddedItems(removeAddedItems);
+
+  // Update localStorage accordingly
+  localStorage.setItem('cartItems', JSON.stringify(removeCartItems));
+  localStorage.setItem('addedItems', JSON.stringify(removeAddedItems));
+};
+
   const allImages = food.flatMap(group => group.items.map(item => item.img));
-  // Example: console.log(allImages);
+  
 
   return (
     <>
@@ -265,6 +310,11 @@ export default function Menu() {
           )}
         </div>
 
+         <ToastContainer
+          position="top-right"
+          autoClose={3000}
+        />
+
         {/* Food Menu */}
       <div className="max-w-2xl mx-auto mt-4 space-y-8">
         {food.map((groups) => (
@@ -330,9 +380,9 @@ export default function Menu() {
      
     
     
-    {showDelivery && (
-      <div className=" inset-0 z-50 max-h-[200vh] bg-black fixed item-center flex justify-center bg-opacity-50">
-        <div className="max-w-md w-full max-h-[90vh] overflow-y-auto hide-scrollbar bg-gradient-to-br from-yellow-50 to-orange-100 rounded-xl shadow-md p-6">
+    {showDelivery &&  (
+      <div className=" inset-0 z-50 max-h-[200vh] bg-black fixed item-center flex justify-center bg-opacity-50 ">
+        <div className="max-w-md w-full max-h-[90vh] overflow-y-auto hide-scrollbar bg-gradient-to-br from-yellow-50 to-orange-100 rounded-xl shadow-md p-6 mt-2">
            <h2 className="mb-2 text-2xl font-semibold">Active Delivery</h2>
           <div className="mb-2">
             <strong>Restaurant:</strong> {order.restaurant}
@@ -373,6 +423,15 @@ export default function Menu() {
             <br />
             <strong>Contact:</strong> {order.driver.phone}
           </div>
+          <div className="mb-4">
+           <div><span className="font-bold">Your Delivery code: </span>{code}</div> 
+          </div>
+          <div className="mb-4">
+            <strong>N.b:</strong>
+            <br />
+            <p >kindly call out your delivery code for the driver to confirm your order</p>
+          </div>
+          
           <div className="mb-4">
             <strong>Tracking:</strong>
             <ol className="pl-5 list-decimal">
@@ -439,7 +498,8 @@ export default function Menu() {
             <button disabled= {!isPickedUp} className={` text-white font-bold rounded-md px-5 py-2  transition-colors ${isPickedUp ?'bg-green-600 hover:bg-green-700 cursor-pointer' :' cursor-not-allowed opacity-60 bg-gray-400' }`}>
               Contact Driver
             </button>
-            <button
+
+            <button onClick={handleHome}
               className={` text-white font-bold rounded-md px-5 py-2 cursor-not-allowed opacity-60 ${isPickedUp ?'bg-gray-400 cursor-not-allowed' :'bg-[#E10602] cursor-pointer hover:bg-red-700 '}`}
               disabled ={isPickedUp}
             >
@@ -447,6 +507,7 @@ export default function Menu() {
             </button>
           </div>
         </div>
+        <a href="/menu" className="text-4xl text-red-600 -mt-2 -mx-1 ">&times;</a>
       </div>
     )}
     

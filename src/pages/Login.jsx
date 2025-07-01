@@ -1,12 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+  const handlelogin = () => {
+    navigate('/home')
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-50 to-orange-100 ">
@@ -45,6 +51,7 @@ export default function Login() {
             />
           </div>
           <button
+          onClick={handlelogin}
             className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2 rounded-lg font-semibold shadow-md hover:from-blue-700 hover:to-blue-600 transition"
             type="submit"
           >

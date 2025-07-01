@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-
+import {  NavLink } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -7,6 +7,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-teal-100 shadow-lg mb-6">
+      
       <div className="container mx-auto flex justify-between items-center p-4">
         <div className="flex mx-8 italic">
           <img className="w-6 h-6 mt-2.5" src="https://img.icons8.com/?size=160&id=cwGoWVNMgQZg&format=png" alt="" />
@@ -24,11 +25,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
         >
-          <img
-            src="https://static.vecteezy.com/system/resources/previews/021/190/402/original/hamburger-menu-filled-icon-in-transparent-background-basic-app-and-web-ui-bold-line-icon-eps10-free-vector.jpg"
-            alt="Menu"
-            className="w-10 h-10"
-          />
+          {isOpen ?<FaTimes className="size-6"/> :  <FaBars className="size-6" /> }
         </button>
         {/* /* Animated Mobile Menu */ }
           <div
@@ -40,58 +37,58 @@ export default function Navbar() {
         >
           <div className="bg-teal-100 rounded-b-lg shadow-lg px-4 pb-4 pt-2">
             <div className="flex flex-col space-y-2">
-              <Link
-                className="hover:text-yellow-300 text-black font-medium transition-colors duration-200"
+              <NavLink
+                className={({isActive}) => isActive ? "text-red-700 font-extrabold bg-stone-300 shadow-md py-2 px-3" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}
                 to="/home"
                 onClick={() => setIsOpen(false)}
               >
                 Home
-              </Link>
-              <Link
-                className="hover:text-yellow-300 text-black font-medium transition-colors duration-200"
+              </NavLink>
+              <NavLink
+                className={({isActive}) => isActive ? "text-red-700 font-extrabold bg-stone-300 shadow-md py-2 px-3" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} 
                 to="/about"
                 onClick={() => setIsOpen(false)}
               >
                 About
-              </Link>
-              <Link
-                className="hover:text-yellow-300 text-black font-medium transition-colors duration-200"
+              </NavLink>
+              <NavLink
+               className={({isActive}) => isActive ? "text-red-700 font-extrabold bg-stone-300 shadow-md py-2 px-3" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} 
                 to="/menu"
                 onClick={() => setIsOpen(false)}
               >
                 Menu
-              </Link>
-              <Link
-                className="hover:text-yellow-300 text-black font-medium transition-colors duration-200"
+              </NavLink>
+              <NavLink
+                className={({isActive}) => isActive ? "text-red-700 font-extrabold bg-stone-300 shadow-md py-2 px-3" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} 
                 to="/contact"
                 onClick={() => setIsOpen(false)}
               >
                 Contact
-              </Link>
-              <Link
-                className="hover:bg-white hover:text-blue-500 font-medium bg-blue-500 text-blue-200 px-3 py-1 rounded transition-colors duration-200"
+              </NavLink>
+              {/* <NavLink
+                className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} 
                 to="/login"
                 onClick={() => setIsOpen(false)}
               >
                 Login
-              </Link>
-              <Link
-                className="hover:bg-white hover:text-green-500 font-medium bg-green-300 text-green-900 px-3 py-1 rounded transition-colors duration-200"
+              </NavLink> */}
+              <NavLink
+                className={({isActive}) => isActive ? "text-red-700 font-extrabold bg-stone-300 shadow-md py-2 px-3" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} 
                 to="/"
                 onClick={() => setIsOpen(false)}
               >
-                Sign Up
-              </Link>
+                Get Started
+              </NavLink>
             </div>
           </div>
         </div>
         <div className="hidden md:flex space-x-4">
-          <Link className="hover:text-yellow-300 text-black font-medium transition-colors duration-200" to="/home">Home</Link>
-          <Link className="hover:text-yellow-300 text-black font-medium transition-colors duration-200" to="/about">About</Link>
-          <Link className="hover:text-yellow-300 text-black font-medium transition-colors duration-200" to="/menu">Menu</Link>
-          <Link className="hover:text-yellow-300 text-black font-medium transition-colors duration-200" to="/contact">Contact</Link>
-          <Link className="hover:bg-white hover:text-blue-500 font-medium bg-blue-600 text-blue-900 px-3 py-1 rounded transition-colors duration-200 shadow" to="/login">Login</Link>
-          <Link className="hover:bg-white hover:text-green-500 font-medium bg-green-300 text-green-900 px-3 py-1 rounded transition-colors duration-200 shadow" to="/">Sign Up</Link>
+          <NavLink className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} to="/home">Home</NavLink>
+          <NavLink className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}to="/about">About</NavLink>
+          <NavLink className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} to="/menu">Menu</NavLink>
+          <NavLink className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} to="/contact">Contact</NavLink>
+          {/* <NavLink className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} to="/login">Login</NavLink> */}
+          <NavLink className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"} to="/">Get Started</NavLink>
         </div>
       </div>
      

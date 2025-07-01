@@ -1,4 +1,5 @@
 import { FaUtensils } from "react-icons/fa";
+import { Link } from "react-router";
 export default
 function Footer() {
   return (
@@ -25,18 +26,18 @@ function Footer() {
       <div className="mt-6 flex flex-col md:flex-row md:justify-center md:items-start items-center gap-6 text-sm w-full max-w-5xl mx-auto px-4">
         <div className="w-full md:w-1/3 flex flex-col items-center md:items-start">
           <h3 className="font-bold mb-2">Quick Links</h3>
-          <ul className="space-y-1">
-            <li><a href="/" className="hover:text-amber-300 hover:font-semibold">Home</a></li>
-            <li><a href="/about" className="hover:text-amber-300 hover:font-semibold">About</a></li>
-            x<li><a href="/menu" className="hover:text-amber-300 hover:font-semibold">Menu</a></li>
-            <li><a href="/contact" className="hover:text-amber-300 hover:font-semibold">Contact</a></li>
+          <ul className="space-y-1 text-start font-semibold">
+              <li><Link to="/Home" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Home</Link></li>
+              <li><Link to="/about" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>About</Link></li>
+            <li><Link to="/menu" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Menu</Link></li>
+            <li><Link to="/contact" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Contact</Link></li>
           </ul>
         </div>
         <div className="w-full md:w-1/3 flex flex-col items-center md:items-start">
-          <h3 className="font-bold mb-2">Contact Us</h3>
+          <h3 className="font-bold mb-2 mx-auto">Contact Us</h3>
           <ul className="space-y-1">
-            <li>Email: <a href="mailto:info@softbite.com" className="hover:underline">info@softbite.com</a></li>
-            <li>Phone: <a href="tel:+1234567890" className="hover:underline">+234 70 3829 8493</a></li>
+            <li>Email: <a href="mailto:info@softbite.com" className="hover:text-blue-600 font-semibold">info@softbite.com</a></li>
+            <li>Phone: <a href="tel:+1234567890" className="hover:text-blue-600 font-semibold">+234 70 3829 8493</a></li>
             <li>Location: 123 Food Street, Flavor Town, ile-oluji</li>
           </ul>
         </div>
