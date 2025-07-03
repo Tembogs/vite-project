@@ -8,7 +8,7 @@ import Chart from './pages/Menu'
 import Contact from './pages/Contact';
 // import Login from './pages/Login';
 import Signup from './pages/Signup';
-import ContactForm from './pages/form';
+import ContactForm from './pages/Form';
 
 
 
