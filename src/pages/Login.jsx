@@ -62,6 +62,7 @@ export default function Login() {
             <a href="/" className="text-blue-600 hover:underline">Sign up</a>
           </div>
         </form>
+        
       </div>
     </div>
   );

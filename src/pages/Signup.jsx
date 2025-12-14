@@ -127,8 +127,10 @@ export default function Signup() {
           <a href="/login" className="text-blue-600 underline hover:text-blue-800">
             Log in
           </a>
-        </div> */}
-      </div>
+        </div> */}  ``  </div>
+ 
+
+
     </div>  
   );
 }

@@ -1,5 +1,5 @@
 import { FaUtensils } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 export default
 function Footer() {
   return (
@@ -27,10 +27,10 @@ function Footer() {
         <div className="w-full md:w-1/3 flex flex-col items-center md:items-start">
           <h3 className="font-bold mb-2">Quick Links</h3>
           <ul className="space-y-1 text-start font-semibold">
-              <li><Link to="/Home" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Home</Link></li>
-              <li><Link to="/about" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>About</Link></li>
-            <li><Link to="/menu" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Menu</Link></li>
-            <li><Link to="/contact" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Contact</Link></li>
+              <li><NavLink to="/Home" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Home</NavLink></li>
+              <li><NavLink to="/about" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>About</NavLink></li>
+            <li><NavLink to="/menu" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Menu</NavLink></li>
+            <li><NavLink to="/contact" onClick={() => window.scrollTo(0, 0)} className={({isActive}) => isActive ? "text-red-700 font-extrabold" : "hover:text-yellow-300 text-black font-medium transition-colors duration-200"}>Contact</NavLink></li>
           </ul>
         </div>
         <div className="w-full md:w-1/3 flex flex-col items-center md:items-start">

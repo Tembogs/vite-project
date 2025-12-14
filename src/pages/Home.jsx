@@ -1,5 +1,6 @@
 import { FaUtensils, FaTruck, FaSmile } from "react-icons/fa";
 import { useLocation } from "react-router";
+import Navbar from "../component/Nav";
 
 
 
@@ -121,9 +122,12 @@ export default function Home() {
             Google Play
           </a>
             </div>
+
           </div>
           <img src="https://codetheorem.co/blogs/wp-content/uploads/2022/10/Food-Delivery-App.jpg" alt="Mobile App" className="w-32 h-32 object-cover rounded-xl shadow-md" />
         </section>
+
+        
       <div className="mb-8">
         <a
           href="/menu"
